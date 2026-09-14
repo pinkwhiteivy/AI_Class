@@ -1,0 +1,61 @@
+#Decision Tree
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import classification_report
+
+df = pd.read_csv("/content/drive/MyDrive/iris.csv")
+X = df.drop("species", axis=1)
+y = df["species"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+model = DecisionTreeClassifier()
+model.fit(X_train, y_train)
+pred_dt = model.predict(X_test)
+print(classification_report(y_test, pred_dt))
+
+#Random Forest
+
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+df = pd.read_csv("/content/drive/MyDrive/iris.csv")
+X = df.drop("species", axis=1)
+y = df["species"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+model = DecisionTreeClassifier()
+model.fit(X_train, y_train)
+pred_dt = model.predict(X_test)
+print(classification_report(y_test, pred_dt))
+
+#Logistic Regression
+
+import pandas as pd
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression(max_iter=200)
+model.fit(X_train, y_train)
+
+df = pd.read_csv("/content/drive/MyDrive/iris.csv")
+X = df.drop("species", axis=1)
+y = df["species"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+model = DecisionTreeClassifier()
+model.fit(X_train, y_train)
+pred_dt = model.predict(X_test)
+print(classification_report(y_test, pred_dt))
+
+#KNN
+import pandas as pd
+from sklearn.neighbors import KNeighborsClassifier
+model = KNeighborsClassifier()
+model.fit(X_train, y_train)
+
+df = pd.read_csv("/content/drive/MyDrive/iris.csv")
+X = df.drop("species", axis=1)
+y = df["species"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+model = DecisionTreeClassifier()
+model.fit(X_train, y_train)
+pred_dt = model.predict(X_test)
+print(classification_report(y_test, pred_dt))
