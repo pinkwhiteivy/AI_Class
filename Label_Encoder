@@ -1,31 +1,3 @@
-#Decision Tree
-
-import pandas as pd7
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import classification_report
-from sklearn.preprocessing import LabelEncoder
-
-column_names = ['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety', 'class']
-df = pd.read_csv("/content/drive/MyDrive/car.data", names=column_names)
-
-X = df.drop("class", axis=1)
-y = df["class"]
-
-X = pd.get_dummies(X, drop_first=True)
-le = LabelEncoder()
-y = le.fit_transform(y)
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-model = DecisionTreeClassifier(random_state=42)
-model.fit(X_train, y_train)
-pred_dt = model.predict(X_test)
-
-target_names = le.classes_
-print(classification_report(y_test, pred_dt, target_names=target_names))
-
-
 #Random Forest
 
 import pandas as pd
