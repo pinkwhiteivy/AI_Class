@@ -1,32 +1,3 @@
-#Random Forest
-
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report
-from sklearn.preprocessing import LabelEncoder
-
-column_names = ['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety', 'class']
-df = pd.read_csv("/content/drive/MyDrive/car.data", names=column_names)
-
-X = df.drop("class", axis=1)
-y = df["class"]
-
-X = pd.get_dummies(X, drop_first=True)
-le = LabelEncoder()
-y = le.fit_transform(y)
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-model_rf = RandomForestClassifier(random_state=42)
-model_rf.fit(X_train, y_train)
-
-pred_rf = model_rf.predict(X_test)
-
-target_names = le.classes_
-print(classification_report(y_test, pred_rf, target_names=target_names))
-
-
 #Logistic Regression
 
 import pandas as pd
@@ -41,7 +12,14 @@ df = pd.read_csv("/content/drive/MyDrive/car.data", names=column_names)
 X = df.drop("class", axis=1)
 y = df["class"]
 
-X = pd.get_dummies(X, drop_first=True)
+label_encoders = {}
+for column in X.columns:
+      label_encoders[column] = LabelEncoder()
+      X[column] = label_encoders[column].fit_transform(X[column])
+
+le_class = LabelEncoder()
+df['class'] = le_class.fit_transform(df['class'])
+
 le = LabelEncoder()
 y = le.fit_transform(y)
 
@@ -54,32 +32,3 @@ pred_lr = model_lr.predict(X_test)
 
 target_names = le.classes_
 print(classification_report(y_test, pred_lr, target_names=target_names))
-
-
-# KNN
-
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import classification_report
-from sklearn.preprocessing import LabelEncoder
-
-column_names = ['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety', 'class']
-df = pd.read_csv("/content/drive/MyDrive/car.data", names=column_names)
-
-X = df.drop("class", axis=1)
-y = df["class"]
-
-X = pd.get_dummies(X, drop_first=True) 
-le = LabelEncoder()
-y = le.fit_transform(y)
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-model_knn = KNeighborsClassifier(n_neighbors=5)
-model_knn.fit(X_train, y_train)
-
-pred_knn = model_knn.predict(X_test)
-
-target_names = le.classes_
-print(classification_report(y_test, pred_knn, target_names=target_names))
