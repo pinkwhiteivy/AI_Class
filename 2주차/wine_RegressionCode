@@ -15,7 +15,7 @@ model = DecisionTreeRegressor(random_state=42)
 model.fit(X_train, y_train)
 pred_dt = model.predict(X_test)
 
-]print("MSE:", mean_squared_error(y_test, p                                 red_dt))
+]print("MSE:", mean_squared_error(y_test, pred_dt))
 
 
 # Random Forest Regressor
